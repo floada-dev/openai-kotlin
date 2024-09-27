@@ -21,9 +21,10 @@ internal class ChatApi(private val requester: HttpRequester) : Chat {
         request: ChatCompletionRequest,
         requestOptions: RequestOptions?
     ): ChatCompletion {
+        val path = requestOptions?.pathOverride ?: ApiPath.ChatCompletions
         return requester.perform {
             it.post {
-                url(path = ApiPath.ChatCompletions)
+                url(path = path)
                 setBody(request)
                 contentType(ContentType.Application.Json)
                 requestOptions(requestOptions)
